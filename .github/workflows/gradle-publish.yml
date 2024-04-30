@@ -11,17 +11,26 @@ name: build and publish
 
 on: [push]
 
-env:
-  SERVICE_NAME: hello-world
-
 jobs:
   publish:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # Adjust the runner OS if required
     steps:
-      - uses: actions/checkout@v2
-      - uses: gradle/actions/setup-gradle@v2
+      - uses: actions/checkout@v3  # Fetch the repository code
+      - name: Set up JDK 21  # Customize the JDK version as needed
+        uses: actions/setup-java@v3
         with:
-          gradle-version: '7.6' # Adjust Gradle version as needed
-      - run: ./gradlew publish  # Replace with your publish task name
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          java-version: '21'
+
+      - name: Cache Gradle dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('build.gradle', 'gradle.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Login to GitHub Packages (optional, only if required by your setup)
+        run: echo ${{ secrets.GH_TOKEN }} | gh auth login --with-token
+
+      - name: Build and publish with Gradle
+        run: ./gradlew publish
