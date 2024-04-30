@@ -19,24 +19,22 @@ tasks.test {
     useJUnitPlatform()
 }
 
+// Configures the publishing
 publishing {
     repositories {
-        // The target repository
         maven {
-            // Choose whatever name you want
             name = "GitHubPackages"
-            // The url of the repository, where the artifacts will be published
-            url = uri("https://maven.pkg.github.com/xpi-hub/xpi-java-sdk")
+            url = uri("https://maven.pkg.github.com/OWNER/REPOSITORY")
             credentials {
-                // The credentials (described in the next section)
-                username = System.getenv("GITHUB_ACTOR")
-                password = System.getenv("GH_TOKEN")
+                username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN")
             }
         }
     }
     publications {
-        register<MavenPublication>("mavenJava") {
-            from(components["java"])
+        register("gpr", MavenPublication::class) {
+            from(components["java"]) //This part fails with a Unresolved reference. None of the following
+            //candidates is applicable because of receiver type mismatch:
         }
     }
 }
