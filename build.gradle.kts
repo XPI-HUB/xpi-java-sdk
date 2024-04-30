@@ -24,10 +24,6 @@ publishing.publications {
         maven {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/XPI-HUB/xpi-java-sdk")
-            credentials {
-                username = System.getenv("GITHUB_ACTOR")
-                password = System.getenv("GH_TOKEN")
-            }
         }
     }
 }
