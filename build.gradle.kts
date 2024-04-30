@@ -19,7 +19,12 @@ tasks.test {
     useJUnitPlatform()
 }
 
-publishing.publications {
+publishing {
+    publication{
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
     repositories {
         maven {
             name = "GitHubPackages"
