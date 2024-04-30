@@ -15,55 +15,13 @@ env:
   SERVICE_NAME: hello-world
 
 jobs:
-  verification:
-    runs-on: ubuntu-22.04
+  publish:
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout local repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v2
+      - uses: gradle/actions/setup-gradle@v2
         with:
-          path: ${{ github.workspace }}/${{ env.SERVICE_NAME }}
-      - uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin' # Here we are using temurin java distribution but can be customized depends on the requirement
-          java-version: '21' # Here we are using java 17 but can be customized depends on the requirement
-          cache: 'gradle' # Here are enabling gradle cache to cache gradle wrappers, dependencies etc. It can be disabled by simply removing the line
-      - name: Run all tests
-        run: ./gradlew clean check --no-daemon
-        working-directory: ${{ github.workspace }}/${{ env.SERVICE_NAME }}/
-      
-  determine_should_publish_new_version: # Publish new version for new tags
-    runs-on: ubuntu-22.04
-    outputs:
-      PUBLISH_NEW_VERSION: ${{ steps.determine_should_publish_new_version.outputs.PUBLISH_NEW_VERSION }}
-    steps:
-      - name: Checkout local repository
-        uses: actions/checkout@v3
-      - name: Determine should publish docker image
-        id: determine_should_publish_new_version
-        run: |
-          PUBLISH_NEW_VERSION=false
-          if [[ $(git tag --points-at HEAD) != '' ]]; then
-            PUBLISH_NEW_VERSION=true
-          fi
-          echo "PUBLISH_NEW_VERSION=${PUBLISH_NEW_VERSION}" >> $GITHUB_OUTPUT
-
-  publish-jar:
-    runs-on: ubuntu-22.04
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      - name: Checkout local repository
-        uses: actions/checkout@v3
-        with:
-          path: ${{ github.workspace }}/${{ env.SERVICE_NAME }}
-      - uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin'
-          java-version: '21'
-          cache: 'gradle'
-      - name: Publish jar
-        run: ./gradlew publish --no-daemon
-        working-directory: ${{ github.workspace }}/${{ env.SERVICE_NAME }}/
+          gradle-version: '7.6' # Adjust Gradle version as needed
+      - run: ./gradlew publish  # Replace with your publish task name
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
