@@ -27,7 +27,7 @@ publishing {
             url = uri("https://maven.pkg.github.com/xpi-hub/xpi-java-sdk/")
             credentials {
                 username = "avivijay19"
-                password = "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"
+                password = "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"
             }
         }
     }
