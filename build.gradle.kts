@@ -25,7 +25,7 @@ subprojects {
         repositories {
             maven {
                 name = "GitHubPackages"
-                url = uri("https://REGISTRY_URL/OWNER/REPOSITORY")
+                url = uri("https://maven.pkg.github.com/XPI-HUB/xpi-java-sdk")
                 credentials {
                     username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
                     password = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN")
