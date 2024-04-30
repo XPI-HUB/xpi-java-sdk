@@ -19,24 +19,15 @@ tasks.test {
     useJUnitPlatform()
 }
 
-subprojects {
-    apply(plugin = "maven-publish")
-    configure<PublishingExtension> {
-        repositories {
-            maven {
-                name = "GitHubPackages"
-                url = uri("https://maven.pkg.github.com/XPI-HUB/xpi-java-sdk")
-                credentials {
-                    username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
-                    password = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN")
-                }
-            }
-        }
-        publications {
-            register<MavenPublication>("gpr") {
-                from(components["java"])
+publishing.publications {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/octocat/hello-world")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GH_TOKEN")
             }
         }
     }
 }
-
