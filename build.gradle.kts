@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.xpi"
-version = "1.0-SNAPSHOT"
+version = "0.0.2"
 
 repositories {
     mavenCentral()
@@ -26,8 +26,8 @@ publishing {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/xpi-hub/xpi-java-sdk/")
             credentials {
-                username = "avivijay19"
-                password = "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"
+                username = "aditinikam"
+                password = "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"
             }
         }
     }
