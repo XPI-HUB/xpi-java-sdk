@@ -19,23 +19,22 @@ tasks.test {
     useJUnitPlatform()
 }
 
-publishing.publications {
+
+publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/octocat/hello-world")
+            url = uri("https://maven.pkg.github.com/OWNER/REPOSITORY")
             credentials {
-                username = System.getenv("GITHUB_ACTOR")
-                password = System.getenv("GITHUB_TOKEN")
+                username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN")
             }
         }
     }
-}
-
-if (hasProperty("buildScan")) {
-    extensions.findByName("buildScan")?.withGroovyBuilder {
-        setProperty("termsOfServiceUrl", "https://gradle.com/terms-of-service")
-        setProperty("termsOfServiceAgree", "yes")
+    publications {
+        register<MavenPublication>("gpr") {
+            from(components["java"])
+        }
     }
 }
 
