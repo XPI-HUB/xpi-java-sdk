@@ -24,10 +24,10 @@ publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/OWNER/REPOSITORY")
+            url = uri("https://maven.pkg.github.com/xpi-hub/xpi-java-sdk/")
             credentials {
-                username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
-                password = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN")
+                username = "avivijay19"
+                password = "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"
             }
         }
     }
