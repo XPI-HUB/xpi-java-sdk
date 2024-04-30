@@ -38,3 +38,7 @@ publishing {
     }
 }
 
+tasks.named("publish") {
+    dependsOn(tasks.named("jar"))
+}
+
