@@ -21,20 +21,21 @@ tasks.test {
 
 // Configures the publishing
 publishing {
+    publications {
+        create<MavenPublication>("default") {
+            from(components["java"])
+            // Include any other artifacts here, like javadocs
+        }
+    }
+
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/xpi-hub/xpi-java-sdk/")
+            url = uri("https://maven.pkg.github.com/xpi-hub/xpi-java-sdk")
             credentials {
-                username = "aditinikam"
-                password = "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"
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
             }
-        }
-    }
-    publications {
-        register("gpr", MavenPublication::class) {
-            from(components["java"]) //This part fails with a Unresolved reference. None of the following
-            //candidates is applicable because of receiver type mismatch:
         }
     }
 }
