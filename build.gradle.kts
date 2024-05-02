@@ -2,6 +2,7 @@ plugins {
     id("java")
     id("jacoco")
     checkstyle
+    pmd
 }
 
 group = "com.xpi"
@@ -16,6 +17,12 @@ checkstyle {
 }
 jacoco {
     toolVersion = "0.8.11"
+}
+pmd {
+    isConsoleOutput = true
+    toolVersion = "7.1.0"
+    rulesMinimumPriority = 5
+    ruleSetConfig = resources.text.fromFile("config/pmd/pmd.xml")
 }
 
 dependencies {
