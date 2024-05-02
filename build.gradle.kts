@@ -11,13 +11,16 @@ version = "1.0-SNAPSHOT"
 repositories {
     mavenCentral()
 }
+
 checkstyle {
     toolVersion = "10.12.4"
     configFile = file("config/checkstyle/checkstyle.xml")
 }
+
 jacoco {
     toolVersion = "0.8.11"
 }
+
 pmd {
     isConsoleOutput = true
     toolVersion = "7.1.0"
@@ -48,6 +51,7 @@ tasks.test {
         isJmx = false
     }
 }
+
 tasks.jacocoTestReport {
     dependsOn(tasks.test) // tests are required to run before generating the report
     reports {
@@ -56,6 +60,7 @@ tasks.jacocoTestReport {
         html.required.set(true)
     }
 }
+
 tasks.jacocoTestCoverageVerification {
     violationRules {
         rule {
