@@ -34,6 +34,10 @@ jobs:
         uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
       - name: Build with Gradle Wrapper
         run: ./gradlew build
+      - name: Run Tests
+        run: ./gradlew test
+      - name: Run Test Coverage
+        run: ./gradlew jacocoTestReport
       - name: Generate JaCoCo badge
         id: jacoco
         uses: cicirello/jacoco-badge-generator@v2
@@ -41,6 +45,7 @@ jobs:
           badges-directory: badges
           generate-branches-badge: true
           generate-summary: true
+          jacoco-csv-file: build/reports/jacoco/test/jacocoTestReport.csv
       - name: Log coverage percentages to workflow output
         run: |
           echo "coverage = ${{ steps.jacoco.outputs.coverage }}"
