@@ -81,7 +81,15 @@ jobs:
         continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+      - name: pmd
+        uses: pmd/pmd-github-action@v2
+        with:
+          version: '6.55.0'
+          sourcePath: 'src/main/java'
+          rulesets: 'config/pmd/pmd.xml'
+      - name: Fail build if there are violations
+        if: steps.pmd.outputs.violations != 0
+        run: exit 1
     # NOTE: The Gradle Wrapper is the default and recommended way to run Gradle (https://docs.gradle.org/current/userguide/gradle_wrapper.html).
     # If your project does not have the Gradle Wrapper configured, you can use the following configuration to run Gradle with a specified version.
     #
