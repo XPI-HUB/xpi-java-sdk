@@ -140,17 +140,11 @@ jobs:
           path: '**/build/reports/checkstyle/main.html'
       - name: pmd
         uses: pmd/pmd-github-action@v2
+        id: pmd
         with:
           version: '7.1.0'
           sourcePath: 'src/main/java'
           rulesets: 'config/pmd/pmd.xml'
-      - name: Upload PMD Reports
-        uses: actions/upload-artifact@v4
-        with:
-          # Artifact name
-          name: pmd-reports
-          # File path describing what artifact to upload
-          path: '**/build/reports/pmd/main.html'
       # Build fails if pmd rules violated
       - name: Fail build if there are violations
         if: steps.pmd.outputs.violations != 0
