@@ -141,7 +141,7 @@ jobs:
       - name: pmd
         uses: pmd/pmd-github-action@v2
         with:
-          version: '6.55.0'
+          version: '7.1.0'
           sourcePath: 'src/main/java'
           rulesets: 'config/pmd/pmd.xml'
       - name: Upload PMD Reports
