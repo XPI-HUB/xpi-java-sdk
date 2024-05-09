@@ -1,8 +1,9 @@
 package standardData;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 import org.springframework.web.client.RestClient;
-
-import java.util.*;
 
 public class StandardDataImpl implements StandardData {
 
@@ -10,42 +11,41 @@ public class StandardDataImpl implements StandardData {
 
     public StandardDataImpl() {
         this.restClient = RestClient
-                .builder()
-                .baseUrl("http://localhost:8080")
-                .build();
+            .builder()
+            .baseUrl("http://localhost:8080/api/")
+            .build();
     }
 
-    public Set getAllCountries(){
+    public Set<?> getAllCountries(){
         return restClient
-                .get()
-                .uri("/api/getAllCountries")
-                .retrieve()
-                .body(Set.class);
+            .get()
+            .uri("getAllCountries")
+            .retrieve()
+            .body(Set.class);
     }
 
-    @SuppressWarnings("unchecked")
-    public List<Currency> getAllCurrency(){
+    public List<?> getAllCurrency() {
         return restClient
-                .get()
-                .uri("/api/getAllCurrency")
-                .retrieve()
-                .body(List.class);
+            .get()
+            .uri("getAllCurrency")
+            .retrieve()
+            .body(List.class);
     }
 
-    public HashMap<String, String> getTimeZone(){
+    public HashMap<?, ?> getTimeZone() {
         return restClient
-                .get()
-                .uri("/api/getTimeZone")
-                .retrieve()
-                .body(HashMap.class);
+            .get()
+            .uri("getTimeZone")
+            .retrieve()
+            .body(HashMap.class);
     }
 
-    public HashMap getTimeZoneFromIds(List<String> ids){
+    public HashMap<?, ?> getTimeZoneFromIds(final List<String> ids) {
         return restClient
-                .post()
-                .uri("/api/getTimeZoneFromIds")
-                .body(ids)
-                .retrieve()
-                .body(HashMap.class);
+            .post()
+            .uri("getTimeZoneFromIds")
+            .body(ids)
+            .retrieve()
+            .body(HashMap.class);
     }
 }

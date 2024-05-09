@@ -6,11 +6,11 @@ import java.util.Set;
 
 public interface StandardData {
 
-    Set getAllCountries();
+    Set<?> getAllCountries();
 
-    List getAllCurrency();
+    List<?> getAllCurrency();
 
-    HashMap getTimeZone();
+    HashMap<?, ?> getTimeZone();
 
-    HashMap getTimeZoneFromIds(List<String> ids);
+    HashMap<?,?> getTimeZoneFromIds(List<String> ids);
 }

@@ -1,9 +1,8 @@
 package hello;
 
+import java.util.Map;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestClient;
-
-import java.util.Map;
 
 public class HelloImpl implements Hello {
 
@@ -12,7 +11,7 @@ public class HelloImpl implements Hello {
     public HelloImpl() {
         restClient = RestClient
                 .builder()
-                .baseUrl("http://localhost:8080")
+                .baseUrl("http://localhost:8080/api")
                 .build();
     }
 
@@ -24,7 +23,7 @@ public class HelloImpl implements Hello {
                 .body(String.class);
     }
 
-    public Map<?, ?> postHello(Map<String, String> map) {
+    public Map<?, ?> postHello(final Map<String, String> map) {
         return restClient
                 .post()
                 .uri("/hello")

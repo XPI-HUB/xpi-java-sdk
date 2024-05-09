@@ -1,7 +1,7 @@
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class MainTest{
+public class MainTest {
 
     @Test
     public void testMain() {
@@ -9,6 +9,6 @@ public class MainTest{
         Main.main(args);
 
         // Verify that the program prints the expected output
-        assertEquals("Hello World!", args[0]+" "+args[1]);
+        assertEquals("Hello World!", args[0] + " " + args[1]);
     }
 }
