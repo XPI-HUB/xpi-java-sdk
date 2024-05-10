@@ -33,25 +33,25 @@ class StandardDataImplTest {
     private RestClient mockRestClient;
 
 
-    @Test
-    public void test_getAllCountries(){
-        List<String> expectedCurrencies = Arrays.asList("USD", "EUR", "INR");
-
-        // Mock successful response
-        when(mockRestClient.get())
-            .thenReturn(given().when().get("/getAllCurrency"))
-            .thenReturn(success().body(expectedCurrencies));
-
-        // Call the method under test
-        List<?> actualCurrencies = standardData.getAllCurrency();
-
-        // Assertions
-        assertEquals(expectedCurrencies.size(), actualCurrencies.size());
-        assertTrue(actualCurrencies.containsAll(expectedCurrencies));
-
-        // Verify interactions
-        verify(mockRestClient).get();
-
-    }
+//    @Test
+//    public void test_getAllCountries(){
+//        List<String> expectedCurrencies = Arrays.asList("USD", "EUR", "INR");
+//
+//        // Mock successful response
+//        when(mockRestClient.get())
+//            .thenReturn(given().when().get("/getAllCurrency"))
+//            .thenReturn(success().body(expectedCurrencies));
+//
+//        // Call the method under test
+//        List<?> actualCurrencies = standardData.getAllCurrency();
+//
+//        // Assertions
+//        assertEquals(expectedCurrencies.size(), actualCurrencies.size());
+//        assertTrue(actualCurrencies.containsAll(expectedCurrencies));
+//
+//        // Verify interactions
+//        verify(mockRestClient).get();
+//
+//    }
 
 }

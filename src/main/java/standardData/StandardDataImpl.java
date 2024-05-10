@@ -3,6 +3,7 @@ package standardData;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+import org.springframework.core.io.Resource;
 import org.springframework.web.client.RestClient;
 
 public class StandardDataImpl implements StandardData {
@@ -47,5 +48,13 @@ public class StandardDataImpl implements StandardData {
             .body(ids)
             .retrieve()
             .body(HashMap.class);
+    }
+
+    public Resource generateBarcode(final String barcode) {
+        return restClient
+            .get()
+            .uri("barcode?text={text}", "1234")
+            .retrieve()
+            .body(Resource.class);
     }
 }
